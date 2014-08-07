@@ -25,39 +25,39 @@ using namespace Eigen;
 
 class SpacecraftTracker : public SpacecraftCalculator {
 	public: 
-						typedef struct {
-							char scId[64];
-							
-							struct OrbitInfo {
-								char id[64];
-								double epochMjd;
-								double positionEci[3];
-								double velocityEci[3];
-							} orbitInfo;
-							
-							struct Param {
-								double ballisticCoeff;
-								double transmitterFrequency;
-							} param;
-						} SCDRec;
+		typedef struct {
+			char scId[64];
+			
+			struct OrbitInfo {
+				char id[64];
+				double epochMjd;
+				double positionEci[3];
+				double velocityEci[3];
+			} orbitInfo;
+			
+			struct Param {
+				double ballisticCoeff;
+				double transmitterFrequency;
+			} param;
+		} SCDRec;
 						
-										SpacecraftTracker			(void);
-										SpacecraftTracker			(SCDRec const& scd);
-										~SpacecraftTracker 			(void);
-										
-						void			setSpacecraftInfo			(SCDRec const& scd);
-						void			getSpacecraftInfo			(SCDRec* scd) const;
-						void			setTargetTime				(double unixtime);
-						void			getTargetTime				(double *unixtime) const;
-						
-						void			test						(double unixtime_s, double unixtime_e, double outputDt);
+		SpacecraftTracker (void);
+		SpacecraftTracker (SCDRec const& scd);
+		~SpacecraftTracker (void);
+		
+		void setSpacecraftInfo (SCDRec const& scd);
+		void getSpacecraftInfo (SCDRec* scd) const;
+		void setTargetTime (double unixtime);
+		void getTargetTime (double *unixtime) const;
+		
+		void test (double unixtime_s, double unixtime_e, double outputDt);
 		
 	private:
-						SCDRec			scd_;
-						double			unixtime_;
-						
-						void			updateSpacecraftState		(void);
-						void			calcIntegrationPeriod		(double* period) const;
+		SCDRec scd_;
+		double unixtime_;
+		
+		void updateSpacecraftState (void);
+		void calcIntegrationPeriod (double* period) const;
 };
 
 

@@ -22,14 +22,14 @@ using namespace Eigen;
 using namespace std;
 
 namespace tf {
-				void		calcDcm					(Matrix3d* ans, int axis, double angle);
+	void calcDcm (Matrix3d* ans, int axis, double angle);
 	
-				void		normalizeRadian			(double* radian, double startPointRadian = 0.0);
-				void		diffRadians				(double* ans, double rad1, double rad2);
-				
-				void		convertMjdToJd			(double* julianDay, double modifiedJd);
-				void		convertJdToTjd			(double* truncatedJd, double julianDay);
-				void		convertMjdToUnixtime	(double* unixtime, double modifiedJd);
+	void normalizeRadian (double* radian, double startPointRadian = 0.0);
+	void diffRadians (double* ans, double rad1, double rad2);
+	
+	void convertMjdToJd (double* julianDay, double modifiedJd);
+	void convertJdToTjd (double* truncatedJd, double julianDay);
+	void convertMjdToUnixtime (double* unixtime, double modifiedJd);
 };
 
 #endif

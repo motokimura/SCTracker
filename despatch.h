@@ -18,23 +18,21 @@
 #include <string>
 
 class DespatchTracker : public SpacecraftTracker {
-
 	public:
-										DespatchTracker				(void);
-										DespatchTracker				(double departureMjd ,SCDRec const& scd);
-										~DespatchTracker			(void);
-										
-						void			setDepartureTime			(double departureMjd);
-						void			getDepartureTime			(double* departureMjd) const;
-						
-						void			getDespatchMode				(string* mode) const;
-						
-						void			test						(double unixtime_s, double unixtime_e, double outputDt);
+		DespatchTracker (void);
+		DespatchTracker (double departureMjd ,SCDRec const& scd);
+		~DespatchTracker (void);
+		
+		void setDepartureTime (double departureMjd);
+		void getDepartureTime (double* departureMjd) const;
+		
+		void getDespatchMode (string* mode) const;
+		
+		void test (double unixtime_s, double unixtime_e, double outputDt);
 	
 	private:
-						double			departureMjd_;
-						
-						void			calcSecondsFromDeparture	(double* secondsFromDeparture) const;
+		double departureMjd_;		
+		void calcSecondsFromDeparture (double* secondsFromDeparture) const;
 };
 
 #endif
