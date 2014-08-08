@@ -47,7 +47,7 @@ class SpacecraftTracker : public SpacecraftCalculator {
 		
 		void setSpacecraftInfo (SCDRec const& scd);
 		void getSpacecraftInfo (SCDRec* scd) const;
-		void setTargetTime (double unixtime);
+		virtual int setTargetTime (double unixtime);
 		void getTargetTime (double *unixtime) const;
 		
 		void test (double unixtime_s, double unixtime_e, double outputDt);

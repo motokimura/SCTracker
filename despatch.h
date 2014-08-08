@@ -26,11 +26,14 @@ class DespatchTracker : public SpacecraftTracker {
 		void setDepartureTime (double departureMjd);
 		void getDepartureTime (double* departureMjd) const;
 		
+		int setTargetTime (double unixtime);
 		void getDespatchMode (string* mode) const;
 		
 		void test (double unixtime_s, double unixtime_e, double outputDt);
 	
 	private:
+		static const double SecondsBeaconEnd_;
+		
 		double departureMjd_;		
 		void calcSecondsFromDeparture (double* secondsFromDeparture) const;
 };

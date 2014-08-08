@@ -40,11 +40,13 @@ void SpacecraftTracker:: getSpacecraftInfo (SCDRec *scd) const
 	*scd = scd_;
 }
 
-void SpacecraftTracker:: setTargetTime (double unixtime)
+int SpacecraftTracker:: setTargetTime (double unixtime)
 {
 	unixtime_ = unixtime;
 	
 	updateSpacecraftState ();
+	
+	return 0;
 }
 
 void SpacecraftTracker:: getTargetTime (double* unixtime) const

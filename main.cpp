@@ -101,6 +101,7 @@ int main (int argc, char* argv[])
 	tracker.setObserverGeoCoord (DEG_TO_RAD(atof (argv[1])), DEG_TO_RAD(atof (argv[2])), atof (argv[3]));
 	// ---end of [2]
 	
+	double unixtime;
 	double elevation, azimuth, doppler, distance;
 	double latitude, longitude, altitude;
 	string mode;
@@ -123,8 +124,12 @@ int main (int argc, char* argv[])
 			break;
 		}
 		
-		tracker.setTargetTime (t);
+		if (tracker.setTargetTime (t) != 0) {
+			cout << "Range error, exit." << endl;
+			break;
+		}
 		
+		tracker.getTargetTime (&unixtime);
 		tracker.getSpacecraftDirection (&elevation, &azimuth);
 		tracker.getDopplerFrequency (&doppler);
 		tracker.getDistanceEarthCentered (&distance);
@@ -132,7 +137,7 @@ int main (int argc, char* argv[])
 		tracker.getDespatchMode (&mode);
 		
 		cout << setprecision (10);
-		cout << t << ",";
+		cout << unixtime << ",";
 		cout << RAD_TO_DEG(elevation) << "," << RAD_TO_DEG(azimuth) << ",";
 		cout << TxFrequency + doppler << ",";
 		cout << distance << ",";

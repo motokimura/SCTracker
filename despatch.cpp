@@ -11,6 +11,8 @@
 ********************************************************************************/
 #include "despatch.h"
 
+const double DespatchTracker:: SecondsBeaconEnd_ = (7.0 * 24.0) * 3600.0;
+
 DespatchTracker:: DespatchTracker (void) : SpacecraftTracker (), departureMjd_ (0.0)
 {
 	
@@ -36,22 +38,44 @@ void DespatchTracker:: getDepartureTime (double* departureMjd) const
 	*departureMjd = departureMjd_;
 }
 
+int DespatchTracker:: setTargetTime (double unixtime) 
+{
+	double departureUnixtime;
+	tf:: convertMjdToUnixtime (&departureUnixtime, departureMjd_);
+	
+	if (unixtime < departureUnixtime) {
+		cout << setprecision (10);
+		cout << "[ERROR] Specified unixtime (" << unixtime << ") is too small" << endl;
+		cout << "[ERROR] Unixtime must be bigger than one at departure: " << departureUnixtime << endl;
+		return -1;
+		
+	}
+	else if (unixtime > departureUnixtime + SecondsBeaconEnd_) {
+		cout << setprecision (10);
+		cout << "[ERROR] Specified unixtime (" << unixtime << ") is too big" << endl;
+		cout << "[ERROR] Unixtime must be smaller than one at transmitter-off: " << departureUnixtime + SecondsBeaconEnd_ << endl;
+		return 1;
+	}
+	else;
+	
+	return SpacecraftTracker:: setTargetTime (unixtime);
+}
+
 void DespatchTracker:: getDespatchMode (string* mode) const
 {
-	const double PeriodMorse = 8.0 * 3600.0;
-	const double PeriodBaudot = 77.0 * 3600.0;
-	const double PeriodBeacon = (7.0 * 24.0) * 3600.0;
+	const double SecondsMorseEnd = 8.0 * 3600.0;
+	const double SecondsBaudotEnd = 77.0 * 3600.0;
 	
 	double secondsFromDeparture;
 	calcSecondsFromDeparture (&secondsFromDeparture);
 	
-	if (secondsFromDeparture > PeriodBeacon) {
+	if (secondsFromDeparture > SecondsBeaconEnd_) {
 		*mode = "radio_stop";
 	}
-	else if (secondsFromDeparture > PeriodBaudot) {
+	else if (secondsFromDeparture > SecondsBaudotEnd) {
 		*mode = "beacon";
 	}
-	else if (secondsFromDeparture > PeriodMorse) {
+	else if (secondsFromDeparture > SecondsMorseEnd) {
 		*mode = "baudot";
 	}
 	else if (secondsFromDeparture > 0.0) {
