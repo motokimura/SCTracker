@@ -43,7 +43,7 @@ class SpacecraftTracker : public SpacecraftCalculator {
 						
 		SpacecraftTracker (void);
 		SpacecraftTracker (SCDRec const& scd);
-		~SpacecraftTracker (void);
+		virtual ~SpacecraftTracker (void);
 		
 		void setSpacecraftInfo (SCDRec const& scd);
 		void getSpacecraftInfo (SCDRec* scd) const;

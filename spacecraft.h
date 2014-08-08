@@ -30,7 +30,7 @@ using namespace Eigen;
 class SpacecraftCalculator {
 	public:
 		SpacecraftCalculator (void);
-		~SpacecraftCalculator (void);
+		virtual ~SpacecraftCalculator (void);
 		
 		void setSpacecraftOrbitInfo (double epochMjd, const double (&posEci)[3], const double (&velEci)[3]);
 		void getSpacecraftOrbitInfo (double* epochMjd, double* posEci, double* velEci) const;
