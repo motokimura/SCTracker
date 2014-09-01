@@ -104,6 +104,7 @@ int main (int argc, char* argv[])
 	double unixtime;
 	double elevation, azimuth, doppler, distance;
 	double latitude, longitude, altitude;
+	double declination, rightascension;
 	string mode;
 	
 	double unixtime_s = atof (argv[4]);
@@ -134,6 +135,7 @@ int main (int argc, char* argv[])
 		tracker.getDopplerFrequency (&doppler);
 		tracker.getDistanceEarthCentered (&distance);
 		tracker.getSpacecraftGeoCoord (&latitude, &longitude, &altitude);
+		tracker.getGeometryEarthCentered (&declination, &rightascension);
 		tracker.getDespatchMode (&mode);
 		
 		cout << setprecision (10);
@@ -143,6 +145,7 @@ int main (int argc, char* argv[])
 		cout << distance << ",";
 		cout << RAD_TO_DEG(latitude) << "," << RAD_TO_DEG(longitude) << ",";
 		cout << altitude << ",";
+		cout << RAD_TO_DEG(declination) << "," << RAD_TO_DEG(rightascension) << ",";
 		cout << mode;
 		cout << endl;
 		

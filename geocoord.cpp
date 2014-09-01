@@ -31,12 +31,9 @@ void SpacecraftCalculator:: getObserverGeoCoord (double* latitude, double* longi
 
 void SpacecraftCalculator:: getGeometryEarthCentered (double *declination, double* rightAscension, double decError, double raError) const
 {	
-	Vector3d earthPos;
-	earth_.getPosition (&earthPos);
-	
-	Vector3d relativePos = spacecraftState_.SC_POSITION - earthPos;
-	
-	calcGeometry (declination, rightAscension, relativePos, decError, raError);
+	Vector3d scPosEci;
+	calcSpacecraftPosEci (&scPosEci);
+	calcGeometry (declination, rightAscension, scPosEci, decError, raError);
 }
 
 void SpacecraftCalculator:: getDopplerFreqEarthCentered (double *dopplerFrequency, double error) const
