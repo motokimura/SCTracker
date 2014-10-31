@@ -147,6 +147,26 @@ double SpacecraftCalculator:: integrateSpacecraftState (double dt, double srpErr
 	return secondsFromEpoch_;
 }
 
+void SpacecraftCalculator:: getSpacecraftPosEci (double* scPosEci) const
+{
+    Vector3d pos;
+    calcSpacecraftPosEci (&pos);
+    
+    for (int i = 0; i < 3; i++) {
+        scPosEci[i] = pos[i];
+    }
+}
+
+void SpacecraftCalculator:: getSpacecraftVelEci (double* scVelEci) const
+{
+    Vector3d vel;
+    calcSpacecraftVelEci (&vel);
+    
+    for (int i = 0; i < 3; i++) {
+        scVelEci[i] = vel[i];
+    }
+}
+
 void SpacecraftCalculator:: test1 (int periodDay)
 {
 	// set orbit information

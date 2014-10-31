@@ -80,18 +80,18 @@ int main (int argc, char* argv[])
 	DespatchTracker tracker;	// based on :public SpacecraftTracker, :public SpacecraftCalculator
 	
 	// [1] init the departure time (necessary to get DESPATCH mode)
-	const double DepartureMjd = 56992.264444;
+	const double DepartureMjd = 56991.265891;
 	tracker.setDepartureTime (DepartureMjd);
 	// ---end of [1]
 	
 	// [2] init spacecraft orbit and parameters, observer geo-coord
 	DespatchTracker:: SCDRec scd;// SpaceCraft Description
 	scd.orbitInfo.epochMjd = DepartureMjd;
-	scd.orbitInfo.positionEci[0] = 10718921.0;
-	scd.orbitInfo.positionEci[1] =   747344.0;
+	scd.orbitInfo.positionEci[0] = 10724614.0;
+	scd.orbitInfo.positionEci[1] =   660629.0;
 	scd.orbitInfo.positionEci[2] = -1050332.0;
-	scd.orbitInfo.velocityEci[0] =  5616.853;
-	scd.orbitInfo.velocityEci[1] =  6764.471;
+	scd.orbitInfo.velocityEci[0] =  5671.378;
+	scd.orbitInfo.velocityEci[1] =  6718.823;
 	scd.orbitInfo.velocityEci[2] = -4193.746;
 	const double TxFrequency = 437.325e6f;
 	scd.param.transmitterFrequency = TxFrequency;
@@ -114,10 +114,10 @@ int main (int argc, char* argv[])
 	// [3] set time at first, then get values
 	const double outputDt = 3600.0;
 	double t = unixtime_s;
-	
+    
 	cout << endl;
 	cout << "----- Results -----" << endl;
-	cout << "unixtime, elevation[deg], azimuth[deg], frequency[Hz], distance[m], latitude[deg], longitude[deg], altitude[m], mode" << endl;
+	cout << "unixtime, elevation[deg], azimuth[deg], frequency[Hz], distance[m], latitude[deg], longitude[deg], altitude[m], declination[deg], right ascension[deg], mode" << endl;
 	
 	while (1) {
 		if (t > unixtime_e) {

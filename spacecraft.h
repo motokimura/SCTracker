@@ -55,6 +55,9 @@ class SpacecraftCalculator {
 		void getSpacecraftGeoCoord (double* latitude, double* longitude, double* altitude) const;
 		void getSpacecraftDirection (double* elevation, double* azimuth, double eleError = 0.0, double aziError = 0.0) const;
 		void getDopplerFrequency (double* dopplerFrequency, double error = 0.0) const;
+        
+        void getSpacecraftPosEci (double* scPosEci) const;
+		void getSpacecraftVelEci (double* scVelEci) const;
 		
 		void resetSpacecraftState (void);
 		double integrateSpacecraftState (double dt, double srpErrorRatio = 0.0);
