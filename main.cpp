@@ -16,6 +16,7 @@ arg[5]: unixtime_end   [sec]
 
 ****************************************************/
 #include "despatch.h"
+#include "pass.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -156,6 +157,21 @@ int main (int argc, char* argv[])
 	tracker.resetSpacecraftState ();
 	
 	// ---end of [3]
+
+	// [4] find next pass
+
+	PassFinder finder;
+	vector<Pass> passes = finder.findAll(&tracker, unixtime, unixtime + 200000, 120);
+
+	cout << endl;
+	cout << "----- Results -----" << endl;
+	cout << "AOS, LOS, TCA" << endl;
+	for (vector<Pass>::iterator it = passes.begin(); it != passes.end(); ++it) {
+		cout << it->AOS << "," << it->LOS << "," << it->TCA << endl;
+	}
+	cout << endl;
+
+	// ---end of [4]
 	
 	return 0;
 }
