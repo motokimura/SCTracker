@@ -80,7 +80,7 @@ int main (int argc, char* argv[])
 	
 	DespatchTracker tracker;	// based on :public SpacecraftTracker, :public SpacecraftCalculator
 	
-	// [1] init the departure time (necessary to get DESPATCH mode)
+	// [1] init the departure time (necessary to get DESPATCH phase)
 	const double DepartureMjd = 56991.265891;
 	tracker.setDepartureTime (DepartureMjd);
 	// ---end of [1]
@@ -106,19 +106,19 @@ int main (int argc, char* argv[])
 	double elevation, azimuth, doppler, distance;
 	double latitude, longitude, altitude;
 	double declination, rightascension;
-	string mode;
+	string phase;
 	
 	double unixtime_s = atof (argv[4]);
 	double unixtime_e;
 	argc >5 ? unixtime_e = atof (argv[5]) : unixtime_e = unixtime_s;
 	
 	// [3] set time at first, then get values
-	const double outputDt = 60.0;
+	const double outputDt = 3600.0;
 	double t = unixtime_s;
     
 	cout << endl;
 	cout << "----- Results -----" << endl;
-	cout << "unixtime, elevation[deg], azimuth[deg], frequency[Hz], distance[m], latitude[deg], longitude[deg], altitude[m], declination[deg], right ascension[deg], mode" << endl;
+	cout << "unixtime, elevation[deg], azimuth[deg], frequency[Hz], distance[m], latitude[deg], longitude[deg], altitude[m], declination[deg], right ascension[deg], phase" << endl;
 	
 	while (1) {
 		if (t > unixtime_e) {
@@ -137,7 +137,7 @@ int main (int argc, char* argv[])
 		tracker.getDistanceEarthCentered (&distance);
 		tracker.getSpacecraftGeoCoord (&latitude, &longitude, &altitude);
 		tracker.getGeometryEarthCentered (&declination, &rightascension);
-		tracker.getDespatchMode (&mode);
+		tracker.getDespatchPhase (&phase);
 		
 		cout << setprecision (10);
 		cout << unixtime << ",";
@@ -147,7 +147,7 @@ int main (int argc, char* argv[])
 		cout << RAD_TO_DEG(latitude) << "," << RAD_TO_DEG(longitude) << ",";
 		cout << altitude << ",";
 		cout << RAD_TO_DEG(declination) << "," << RAD_TO_DEG(rightascension) << ",";
-		cout << mode;
+		cout << phase;
 		cout << endl;
 		
 		t += outputDt;

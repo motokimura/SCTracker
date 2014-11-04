@@ -6,14 +6,14 @@
 * Date      : 2014.8.7
 * Language  : C++
 *********************************************************************************
-* class to calculate the mode of DESPATCH
+* class to calculate the phase of DESPATCH
 *
 ********************************************************************************/
 #include "despatch.h"
 
 const double DespatchTracker:: SecondsMorseEnd_ = 9.0 * 3600.0;
 const double DespatchTracker:: SecondsBaudotEnd_ = 108.0 * 3600.0;
-const double DespatchTracker:: SecondsBeaconEnd_ = (7.0 * 24.0) * 3600.0;
+const double DespatchTracker:: SecondsBeaconEnd_ = (10.0 * 24.0) * 3600.0;
 
 DespatchTracker:: DespatchTracker (void) : SpacecraftTracker (), departureMjd_ (0.0)
 {
@@ -63,25 +63,25 @@ int DespatchTracker:: setTargetTime (double unixtime)
 	return SpacecraftTracker:: setTargetTime (unixtime);
 }
 
-void DespatchTracker:: getDespatchMode (string* mode) const
+void DespatchTracker:: getDespatchPhase (string* phase) const
 {	
 	double secondsFromDeparture;
 	calcSecondsFromDeparture (&secondsFromDeparture);
 	
 	if (secondsFromDeparture > SecondsBeaconEnd_) {
-		*mode = "radio_stop";
+		*phase = "radio_stop";
 	}
 	else if (secondsFromDeparture > SecondsBaudotEnd_) {
-		*mode = "beacon";
+		*phase = "3";
 	}
 	else if (secondsFromDeparture > SecondsMorseEnd_) {
-		*mode = "baudot";
+		*phase = "2";
 	}
 	else if (secondsFromDeparture > 0.0) {
-		*mode = "morse";
+		*phase = "1";
 	}
 	else {
-		*mode = "not_defined";
+		*phase = "not_defined";
 	}
 }
 
@@ -116,21 +116,21 @@ void DespatchTracker:: test (double unixtime_s, double unixtime_e, double output
 	
 	// variables
 	double distance;
-	string mode;
+	string phase;
 	
 	double utime = unixtime_s;
 	
-	cout << "unixtime, distance, mode" << endl;
+	cout << "unixtime, distance, phase" << endl;
 	do {
 		setTargetTime (utime);
 		
 		getDistanceEarthCentered (&distance);
-		getDespatchMode (&mode);
+		getDespatchPhase (&phase);
 		
 		cout << setprecision (10);
 		cout << utime << ",";
 		cout << distance << ",";
-		cout << mode;
+		cout << phase;
 		cout << endl;
 		
 		utime += outputDt;
