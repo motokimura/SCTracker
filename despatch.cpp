@@ -11,6 +11,8 @@
 ********************************************************************************/
 #include "despatch.h"
 
+const double DespatchTracker:: SecondsMorseEnd_ = 9.0 * 3600.0;
+const double DespatchTracker:: SecondsBaudotEnd_ = 108.0 * 3600.0;
 const double DespatchTracker:: SecondsBeaconEnd_ = (7.0 * 24.0) * 3600.0;
 
 DespatchTracker:: DespatchTracker (void) : SpacecraftTracker (), departureMjd_ (0.0)
@@ -62,20 +64,17 @@ int DespatchTracker:: setTargetTime (double unixtime)
 }
 
 void DespatchTracker:: getDespatchMode (string* mode) const
-{
-	const double SecondsMorseEnd = 8.0 * 3600.0;
-	const double SecondsBaudotEnd = 77.0 * 3600.0;
-	
+{	
 	double secondsFromDeparture;
 	calcSecondsFromDeparture (&secondsFromDeparture);
 	
 	if (secondsFromDeparture > SecondsBeaconEnd_) {
 		*mode = "radio_stop";
 	}
-	else if (secondsFromDeparture > SecondsBaudotEnd) {
+	else if (secondsFromDeparture > SecondsBaudotEnd_) {
 		*mode = "beacon";
 	}
-	else if (secondsFromDeparture > SecondsMorseEnd) {
+	else if (secondsFromDeparture > SecondsMorseEnd_) {
 		*mode = "baudot";
 	}
 	else if (secondsFromDeparture > 0.0) {

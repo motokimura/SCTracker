@@ -32,9 +32,11 @@ class DespatchTracker : public SpacecraftTracker {
 		void test (double unixtime_s, double unixtime_e, double outputDt);
 	
 	private:
+        static const double SecondsMorseEnd_;
+        static const double SecondsBaudotEnd_;
 		static const double SecondsBeaconEnd_;
 		
-		double departureMjd_;		
+		double departureMjd_;
 		void calcSecondsFromDeparture (double* secondsFromDeparture) const;
 };
 

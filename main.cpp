@@ -113,7 +113,7 @@ int main (int argc, char* argv[])
 	argc >5 ? unixtime_e = atof (argv[5]) : unixtime_e = unixtime_s;
 	
 	// [3] set time at first, then get values
-	const double outputDt = 3600.0;
+	const double outputDt = 60.0;
 	double t = unixtime_s;
     
 	cout << endl;
@@ -161,7 +161,7 @@ int main (int argc, char* argv[])
 	// [4] find next pass
 
 	PassFinder finder;
-	vector<Pass> passes = finder.findAll(&tracker, unixtime, unixtime + 200000, 120);
+	vector<Pass> passes = finder.findAll(&tracker, unixtime_s, unixtime_e, 60);
 
 	cout << endl;
 	cout << "----- Results -----" << endl;
