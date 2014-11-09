@@ -22,8 +22,15 @@ struct Pass {
 class PassFinder {
 public:
   PassFinder (void);
+  
+  void setDepartureTime (double departure_unix);
+  void getDepartureTime (double *departure_unix) const;
+  
   Pass findFirst(SpacecraftTracker* tracker, double begin_unix, double end_unix, double interval) const;
   std::vector<Pass> findAll(SpacecraftTracker* tracker, double begin_unix, double end_unix, double interval) const;
+
+private:
+  double departure_unix_;
 };
 
 #endif

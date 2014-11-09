@@ -17,6 +17,7 @@ arg[5]: unixtime_end   [sec]
 ****************************************************/
 #include "despatch.h"
 #include "pass.h"
+#include "tf.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -161,6 +162,11 @@ int main (int argc, char* argv[])
 	// [4] find next pass
 
 	PassFinder finder;
+    
+    double departureUnixtime;
+    tf:: convertMjdToUnixtime (&departureUnixtime, DepartureMjd);
+    finder.setDepartureTime (departureUnixtime);
+    
 	vector<Pass> passes = finder.findAll(&tracker, unixtime_s, unixtime_e, 60);
 
 	cout << endl;
