@@ -139,7 +139,7 @@ int main (int argc, char* argv[])
 		tracker.getSpacecraftGeoCoord (&latitude, &longitude, &altitude);
 		tracker.getGeometryEarthCentered (&declination, &rightascension);
 		tracker.getDespatchPhase (&phase);
-		
+	    
 		cout << setprecision (10);
 		cout << unixtime << ",";
 		cout << RAD_TO_DEG(elevation) << "," << RAD_TO_DEG(azimuth) << ",";
@@ -150,7 +150,7 @@ int main (int argc, char* argv[])
 		cout << RAD_TO_DEG(declination) << "," << RAD_TO_DEG(rightascension) << ",";
 		cout << phase;
 		cout << endl;
-		
+        
 		t += outputDt;
 	}
 	
@@ -178,6 +178,53 @@ int main (int argc, char* argv[])
 	cout << endl;
 
 	// ---end of [4]
+    
+    // [5] calculate spacecraft position in ICRF frame
+    
+    const double SecondsPerDay = 3600.0 * 24.0;
+    
+    double pos_sc[3], vel_sc[3];
+    double pos_earth[3], vel_earth[3];
+    
+    tracker.resetSpacecraftState ();
+    tf:: convertMjdToUnixtime (&unixtime_s, DepartureMjd);
+    
+    cout << endl;
+	cout << "----- Results -----" << endl;
+	cout << "unixtime, x_sc[km], y_sc[km], z_sc[km], x_e[km], y_e[km], z_e[km], u_sc[m/s], v_sc[m/s], w_sc[m/s], u_e[m/s], v_e[m/s], w_e[m/s], distance[km]" << endl;
+	
+    t = unixtime_s;
+    unixtime_e = unixtime_s + 400.0 * SecondsPerDay; // 400 Days
+    
+	while (1) {
+		if (t > unixtime_e) {
+			cout << "finished" << endl;
+			break;
+		}
+		
+		if (tracker.setTargetTime (t) != 0) {
+			cout << "Range error, exit." << endl;
+			break;
+		}
+		
+		tracker.getSpacecraftState (pos_sc, vel_sc);
+        tracker.getEarthPosSci (pos_earth);
+        tracker.getEarthVelSci (vel_earth);
+        tracker.getDistanceEarthCentered (&distance);
+	    
+		cout << setprecision (10);
+		cout << t << ",";
+		cout << pos_sc[0] / 1000.0 << "," << pos_sc[1] / 1000.0 << "," << pos_sc[2] / 1000.0 << ",";
+        cout << pos_earth[0] / 1000.0 << "," << pos_earth[1] / 1000.0 << "," << pos_earth[2] / 1000.0 << ",";
+        cout << vel_sc[0] << "," << vel_sc[1] << "," << vel_sc[2] << ",";
+        cout << vel_earth[0] << "," << vel_earth[1] << "," << vel_earth[2] << ",";
+        cout << distance / 1000.0;
+		cout << endl;
+        
+		t += SecondsPerDay;
+	}
+    
+    // --end of [5]
 	
 	return 0;
 }

@@ -58,6 +58,9 @@ class SpacecraftCalculator {
         
         void getSpacecraftPosEci (double* scPosEci) const;
 		void getSpacecraftVelEci (double* scVelEci) const;
+        
+        void getEarthPosSci (double* earthPosSci) const;
+        void getEarthVelSci (double* earthVelSci) const;
 		
 		void resetSpacecraftState (void);
 		double integrateSpacecraftState (double dt, double srpErrorRatio = 0.0);

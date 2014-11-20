@@ -110,12 +110,25 @@ void SpacecraftTracker:: updateSpacecraftState (void)
 {
 	double period;
 	calcIntegrationPeriod (&period);
-	
-	const double Dt = 60.0;
-	
-	double dt;
-	if (period > 0) {dt = Dt;}	// integrate forward
-	else {dt = -Dt;}			// integrate backward
+    
+    double distance;
+    getDistanceEarthCentered (&distance);
+    
+    const double RangeNearEarth = 100000000.0;
+    const double DtNearEarth = 1.0;
+    const double DtFarFromEarth = 60.0;
+    
+    double dt;
+    if (distance < RangeNearEarth) {
+        dt = DtNearEarth;   // dt should be small enough when the spacecraft is near Earth for the accuracy
+    }
+    else {
+        dt  = DtFarFromEarth;
+    }
+    
+    if (period < 0.0) {
+        dt *= -1.0;
+    }
 	
 	double t = 0.0;
 	while (1) {

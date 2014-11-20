@@ -167,6 +167,16 @@ void SpacecraftCalculator:: getSpacecraftVelEci (double* scVelEci) const
     }
 }
 
+void SpacecraftCalculator:: getEarthPosSci (double* earthPosSci) const
+{
+    earth_.getPosition (earthPosSci);
+}
+
+void SpacecraftCalculator:: getEarthVelSci (double* earthVelSci) const
+{
+    earth_.getVelocity (earthVelSci);
+}
+
 void SpacecraftCalculator:: test1 (int periodDay)
 {
 	// set orbit information
