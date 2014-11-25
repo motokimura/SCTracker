@@ -82,26 +82,26 @@ int main (int argc, char* argv[])
 	DespatchTracker tracker;	// based on :public SpacecraftTracker, :public SpacecraftCalculator
 	
 	// [1] init the departure time (necessary to get DESPATCH phase)
-	const double DepartureMjd = 56991.265891;
+	const double DepartureMjd = 56991.265921;
 	tracker.setDepartureTime (DepartureMjd);
 	// ---end of [1]
 	
 	// [2] init spacecraft orbit and parameters, observer geo-coord
 	DespatchTracker:: SCDRec scd;// SpaceCraft Description
 	scd.orbitInfo.epochMjd = DepartureMjd;
-	scd.orbitInfo.positionEci[0] = 10724614.0;
-	scd.orbitInfo.positionEci[1] =   660629.0;
-	scd.orbitInfo.positionEci[2] = -1050332.0;
-	scd.orbitInfo.velocityEci[0] =  5671.378;
-	scd.orbitInfo.velocityEci[1] =  6718.823;
-	scd.orbitInfo.velocityEci[2] = -4193.746;
+	scd.orbitInfo.positionEci[0] = 10731986.0;
+	scd.orbitInfo.positionEci[1] =   669676.0;
+	scd.orbitInfo.positionEci[2] = -1056032.0;
+	scd.orbitInfo.velocityEci[0] =  5665.982;
+	scd.orbitInfo.velocityEci[1] =  6718.310;
+	scd.orbitInfo.velocityEci[2] = -4193.223;
 	scd.param.ballisticCoeff = 150.0;
 	tracker.setSpacecraftInfo (scd);
     /*
     DespatchTracker:: SerializedSCDRec sscd =
     {
         "despatch",
-        "SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02_ 56991.265891 10724614.0 660629.0 -1050332.0 5671.378 6718.823 -4193.746",
+        "SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02_ 56991.265921 10731986.0 669676.0 -1056032.0 5665.982 6718.310 -4193.223",
         "150.0"
     };
     tracker.setSpacecraftInfo (sscd);
