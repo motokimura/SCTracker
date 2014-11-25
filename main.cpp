@@ -95,16 +95,16 @@ int main (int argc, char* argv[])
 	scd.orbitInfo.velocityEci[0] =  5671.378;
 	scd.orbitInfo.velocityEci[1] =  6718.823;
 	scd.orbitInfo.velocityEci[2] = -4193.746;
-	const double TxFrequency = 437.325e6f;
-	scd.param.transmitterFrequency = TxFrequency;
 	scd.param.ballisticCoeff = 150.0;
+    
+	const double TxFrequency = 437.325e6f;
 	
 	tracker.setSpacecraftInfo (scd);
 	tracker.setObserverGeoCoord (DEG_TO_RAD(atof (argv[1])), DEG_TO_RAD(atof (argv[2])), atof (argv[3]));
 	// ---end of [2]
 	
 	double unixtime;
-	double elevation, azimuth, doppler, distance;
+	double elevation, azimuth, doppler_ratio, distance;
 	double latitude, longitude, altitude;
 	double declination, rightascension;
 	string phase;
@@ -134,22 +134,24 @@ int main (int argc, char* argv[])
 		
 		tracker.getTargetTime (&unixtime);
 		tracker.getSpacecraftDirection (&elevation, &azimuth);
-		tracker.getDopplerFrequency (&doppler);
+		tracker.getDopplerRatio (&doppler_ratio);
 		tracker.getDistanceEarthCentered (&distance);
 		tracker.getSpacecraftGeoCoord (&latitude, &longitude, &altitude);
 		tracker.getGeometryEarthCentered (&declination, &rightascension);
 		tracker.getDespatchPhase (&phase);
 	    
+        //if (elevation > 0.0) {
 		cout << setprecision (10);
 		cout << unixtime << ",";
 		cout << RAD_TO_DEG(elevation) << "," << RAD_TO_DEG(azimuth) << ",";
-		cout << TxFrequency + doppler << ",";
+		cout << doppler_ratio * TxFrequency << ",";
 		cout << distance << ",";
 		cout << RAD_TO_DEG(latitude) << "," << RAD_TO_DEG(longitude) << ",";
 		cout << altitude << ",";
 		cout << RAD_TO_DEG(declination) << "," << RAD_TO_DEG(rightascension) << ",";
 		cout << phase;
 		cout << endl;
+        //}
         
 		t += outputDt;
 	}
@@ -179,6 +181,7 @@ int main (int argc, char* argv[])
 
 	// ---end of [4]
     
+    /*
     // [5] calculate spacecraft position in ICRF frame
     
     const double SecondsPerDay = 3600.0 * 24.0;
@@ -225,6 +228,7 @@ int main (int argc, char* argv[])
 	}
     
     // --end of [5]
+    */
 	
 	return 0;
 }

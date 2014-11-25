@@ -111,7 +111,6 @@ void DespatchTracker:: test (double unixtime_s, double unixtime_e, double output
 	scd.orbitInfo.velocityEci[1] =  6764.471;
 	scd.orbitInfo.velocityEci[2] = -4193.746;
 	scd.param.ballisticCoeff = 150.0;
-	scd.param.transmitterFrequency = 437.325e6f;
 	setSpacecraftInfo (scd);
 	
 	// variables

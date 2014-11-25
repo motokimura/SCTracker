@@ -32,7 +32,7 @@ void SpacecraftTracker:: setSpacecraftInfo (SCDRec const& scd)
 	scd_ = scd;
 	
 	setSpacecraftOrbitInfo (scd_.orbitInfo.epochMjd, scd_.orbitInfo.positionEci, scd_.orbitInfo.velocityEci);
-	setSpacecraftParams (scd_.param.ballisticCoeff, scd_.param.transmitterFrequency);
+	setSpacecraftParams (scd_.param.ballisticCoeff);
 }
 
 void SpacecraftTracker:: getSpacecraftInfo (SCDRec *scd) const
@@ -76,27 +76,28 @@ void SpacecraftTracker:: test (double unixtime_s, double unixtime_e, double outp
 	scd.orbitInfo.velocityEci[1] =  6764.471;
 	scd.orbitInfo.velocityEci[2] = -4193.746;
 	scd.param.ballisticCoeff = 150.0;
-	scd.param.transmitterFrequency = 437.325e6f;
 	setSpacecraftInfo (scd);
 	
 	// variables
-	double declination, ra, doppler, distance, speed;
+	double declination, ra, doppler_ratio, distance, speed;
 	
 	double utime = unixtime_s;
 	
+    const double Frequency = 437.325e6f;
+    
 	cout << "unixtime, x, y, z, u, v, w, declination, RA, doppler, distance, speed" << endl;
 	do {
 		setTargetTime (utime);
 		
 		getGeometryEarthCentered (&declination, &ra);
-		getDopplerFreqEarthCentered (&doppler);
+		getDopplerRatioEarthCentered (&doppler_ratio);
 		getDistanceEarthCentered (&distance);
 		getSpacecraftRelativeSpeed (&speed);
 		
 		cout << setprecision (10);
 		cout << utime << ",";
 		cout << declination << "," << ra << ",";
-		cout << doppler << ",";
+		cout << (doppler_ratio - 1.0) * Frequency << ",";
 		cout << distance << ",";
 		cout << speed;
 		cout << endl;

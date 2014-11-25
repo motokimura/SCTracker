@@ -37,7 +37,6 @@ class SpacecraftTracker : public SpacecraftCalculator {
 			
 			struct Param {
 				double ballisticCoeff;
-				double transmitterFrequency;
 			} param;
 		} SCDRec;
 						
