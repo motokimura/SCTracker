@@ -49,12 +49,12 @@ class SpacecraftCalculator {
 		void getSecondsFromEpoch (double* secondsFromEpoch) const;
 		
 		void getGeometryEarthCentered (double* declination, double* rightAscension, double decError = 0.0, double raError = 0.0) const;
-		void getDopplerRatioEarthCentered (double* ratio) const;
+		void getDopplerRatioEarthCentered (double* downlink, double* uplink) const;
 		void getDistanceEarthCentered (double* distance, double error = 0.0) const;
 		void getSpacecraftRelativeSpeed (double* speed) const;
 		void getSpacecraftGeoCoord (double* latitude, double* longitude, double* altitude) const;
 		void getSpacecraftDirection (double* elevation, double* azimuth, double eleError = 0.0, double aziError = 0.0) const;
-		void getDopplerRatio (double* ratio) const;
+		void getDopplerRatio (double* downlink, double* uplink) const;
         
         void getSpacecraftPosEci (double* scPosEci) const;
 		void getSpacecraftVelEci (double* scVelEci) const;
@@ -90,7 +90,7 @@ class SpacecraftCalculator {
 		void calcSpacecraftPosEcef (Vector3d* scPosEcef) const;
 		void calcSpacecraftRelativePosEnu (Vector3d* scPosEnu) const;
 		void calcGeometry (double* lat, double* lon, Vector3d const& relativePos, double latError, double lonError) const;
-		void calcDopplerRatio (double* ratio, Vector3d const& relativePos, Vector3d const& relativeVel) const;
+		void calcDopplerRatio (double* downlink, double* uplink,  Vector3d const& relativePos, Vector3d const& relativeVel) const;
 };
 
 

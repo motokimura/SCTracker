@@ -79,7 +79,7 @@ void SpacecraftTracker:: test (double unixtime_s, double unixtime_e, double outp
 	setSpacecraftInfo (scd);
 	
 	// variables
-	double declination, ra, doppler_ratio, distance, speed;
+	double declination, ra, doppler_down, doppler_up, distance, speed;
 	
 	double utime = unixtime_s;
 	
@@ -90,14 +90,14 @@ void SpacecraftTracker:: test (double unixtime_s, double unixtime_e, double outp
 		setTargetTime (utime);
 		
 		getGeometryEarthCentered (&declination, &ra);
-		getDopplerRatioEarthCentered (&doppler_ratio);
+		getDopplerRatioEarthCentered (&doppler_down, &doppler_up);
 		getDistanceEarthCentered (&distance);
 		getSpacecraftRelativeSpeed (&speed);
 		
 		cout << setprecision (10);
 		cout << utime << ",";
 		cout << declination << "," << ra << ",";
-		cout << (doppler_ratio - 1.0) * Frequency << ",";
+		cout << (doppler_down - 1.0) * Frequency << ",";
 		cout << distance << ",";
 		cout << speed;
 		cout << endl;

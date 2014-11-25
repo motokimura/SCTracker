@@ -189,7 +189,7 @@ void SpacecraftCalculator:: test1 (int periodDay)
 	
 	// variables
 	Vector3d scPos, scVel;
-	double declination, ra, doppler_ratio, distance, speed;
+	double declination, ra, doppler_down, doppler_up, distance, speed;
 	
 	const double Dt = 60.0;
 	const double SecondsDay = 3600.0 * 24.0;
@@ -205,7 +205,7 @@ void SpacecraftCalculator:: test1 (int periodDay)
 		
 		getSpacecraftState (&scPos, &scVel);
 		getGeometryEarthCentered (&declination, &ra);
-		getDopplerRatioEarthCentered (&doppler_ratio);
+		getDopplerRatioEarthCentered (&doppler_down, &doppler_up);
 		getDistanceEarthCentered (&distance);
 		getSpacecraftRelativeSpeed (&speed);
 		
@@ -214,7 +214,7 @@ void SpacecraftCalculator:: test1 (int periodDay)
 			cout << scPos[0] << "," << scPos[1] << "," << scPos[2] << ",";
 			cout << scVel[0] << "," << scVel[1] << "," << scVel[2] << ",";
 			cout << declination << "," << ra << ",";
-			cout << (doppler_ratio - 1.0) * Frequency << ",";
+			cout << (doppler_down - 1.0) * Frequency << ",";
 			cout << distance << ",";
 			cout << speed;
 			cout << endl;
