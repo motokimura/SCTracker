@@ -96,10 +96,16 @@ int main (int argc, char* argv[])
 	scd.orbitInfo.velocityEci[1] =  6718.823;
 	scd.orbitInfo.velocityEci[2] = -4193.746;
 	scd.param.ballisticCoeff = 150.0;
-    
-	const double TxFrequency = 437.325e6f;
-	
 	tracker.setSpacecraftInfo (scd);
+    /*
+    DespatchTracker:: SerializedSCDRec sscd =
+    {
+        "despatch",
+        "SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02SCD1-DESPATCH-02_ 56991.265891 10724614.0 660629.0 -1050332.0 5671.378 6718.823 -4193.746",
+        "150.0"
+    };
+    tracker.setSpacecraftInfo (sscd);
+    */
 	tracker.setObserverGeoCoord (DEG_TO_RAD(atof (argv[1])), DEG_TO_RAD(atof (argv[2])), atof (argv[3]));
 	// ---end of [2]
 	
@@ -116,6 +122,8 @@ int main (int argc, char* argv[])
 	// [3] set time at first, then get values
 	const double outputDt = 3600.0;
 	double t = unixtime_s;
+    
+	const double TxFrequency = 437.325e6f;
     
 	cout << endl;
 	cout << "----- Results -----" << endl;

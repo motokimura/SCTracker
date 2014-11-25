@@ -39,13 +39,22 @@ class SpacecraftTracker : public SpacecraftCalculator {
 				double ballisticCoeff;
 			} param;
 		} SCDRec;
+        
+        typedef struct {
+            char name[65];
+            std::string info;
+            std::string param;
+        } SerializedSCDRec;
 						
 		SpacecraftTracker (void);
 		SpacecraftTracker (SCDRec const& scd);
+        SpacecraftTracker (SerializedSCDRec const& scd);
 		virtual ~SpacecraftTracker (void);
 		
-		void setSpacecraftInfo (SCDRec const& scd);
+		int setSpacecraftInfo (SCDRec const& scd);
+        int setSpacecraftInfo (SerializedSCDRec const& scd);
 		void getSpacecraftInfo (SCDRec* scd) const;
+        
 		virtual int setTargetTime (double unixtime);
 		void getTargetTime (double *unixtime) const;
 		
@@ -57,6 +66,10 @@ class SpacecraftTracker : public SpacecraftCalculator {
 		
 		void updateSpacecraftState (void);
 		void calcIntegrationPeriod (double* period) const;
+        
+        bool convert(SerializedSCDRec const& in, SCDRec* out);
+        bool convert(SCDRec const& in, SerializedSCDRec* out);
+        bool toDouble(char const* start, char end, double* value);
 };
 
 
