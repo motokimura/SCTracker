@@ -62,6 +62,11 @@ void SpacecraftTracker:: getSpacecraftInfo (SCDRec *scd) const
 	*scd = scd_;
 }
 
+void SpacecraftTracker:: getSpacecraftInfo (SerializedSCDRec *scd) const
+{
+    convert(scd_, scd);
+}
+
 int SpacecraftTracker:: setTargetTime (double unixtime)
 {
 	unixtime_ = unixtime;
