@@ -20,6 +20,7 @@ arg[5]: unixtime_end   [sec]
 #include "tf.h"
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <string>
 #include <cmath>
@@ -97,6 +98,16 @@ int main (int argc, char* argv[])
 	scd.orbitInfo.velocityEci[2] = -4193.223;
 	scd.param.ballisticCoeff = 150.0;
 	tracker.setSpacecraftInfo (scd);
+    
+    { // added by HORIGUCHI J.
+        DespatchTracker::SerializedSCDRec txt;
+        tracker.getSpacecraftInfo(&txt);
+        ofstream ofs("despatch.scd");
+        ofs << "DESPATCH" << endl;
+        ofs << "SCD00001" << txt.info << endl;
+        ofs << txt.param << endl;
+    }
+    
     /*
     DespatchTracker:: SerializedSCDRec sscd =
     {
