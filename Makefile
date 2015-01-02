@@ -4,7 +4,7 @@ OBJ	= main.o tf.o planet.o spacecraft.o geocoord.o tracker.o despatch.o pass.o
 
 INCLUDE	= -I eigen-eigen-6b38706d90a9
 
-CFLAGS	= -g -Wall
+CFLAGS	= -g -Wall -march=native -O3
 LFLAGS	= -lm
 
 CC	= g++ $(CFLAGS)

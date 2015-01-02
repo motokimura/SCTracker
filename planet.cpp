@@ -139,16 +139,16 @@ int Planet:: initOrbitElements (void)
 	const double AU =  149597870700.0;
 	const double MueSun = 1.32712442099e20;
 	
-	// Earth (Rika-nenpyo 2014)
+	// http://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html, January 2014
 	if (planet_ == "earth") {
-		a_ = 1.0 * AU;
-		e_ = 0.0167;
-		i_ = 0.002 * Pi / 180.0;
-		w_ = 102.985 * Pi / 180.0;
-		W_ = 174.838 * Pi / 180.0 + Pi;
-		M0_ = 137.350 * Pi /180.0;
-
-		t0Mjd_ = (2456800.5 - 2400000.5);	// MJD = JD - 2 400 000.5
+        a_ = 1.00000011 * AU;
+		e_ = 0.01671022;
+		i_ = 0.00005 * Pi / 180.0;
+        W_ = -11.26064 * Pi / 180.0;
+		w_ = 102.94719 * Pi / 180.0 - W_;
+		M0_ = 100.46435 * Pi /180.0 - w_ - W_;
+        
+		t0Mjd_ = (2451545.00000 - 2400000.5);	// MJD = JD - 2 400 000.5
 		n_ = sqrt (MueSun / (a_ * a_ * a_));
 	}
 	
