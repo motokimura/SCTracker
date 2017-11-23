@@ -17,7 +17,7 @@ A sample program is written in main.cpp. The orbit parameters defined as Cartesi
 
 [DESPATCH Tracking API](http://api.artsat.jp/pass/)
 
-## Licence
+## License
 
 [MIT License](LICENSE.txt)
 
